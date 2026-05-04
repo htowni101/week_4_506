@@ -44,7 +44,7 @@ app.use((req, _res, next) => {
 // is fine — the bug is in the timing, not the storage.
 let currentDraft = '';
 let publishedDraft = '';
-
+let latestSaveCommit = Promise.resolve();
 // SAVE_COMMIT_DELAY_MS controls how long a /draft request takes to commit.
 // In production this would represent database write latency, network latency,
 // or any other delay between "request received" and "value updated."
@@ -79,24 +79,28 @@ app.post('/draft', (req, res) => {
   });
 
   // Simulate write latency.
-  setTimeout(() => {
-    log('COMMIT /draft (before write)', {
-      reqId,
-      writing: content,
-      currentDraft_before: currentDraft,
-      publishedDraft_before: publishedDraft,
-    });
+  latestSaveCommit = new Promise((resolve) => {
+    setTimeout(() => {
+      log('COMMIT /draft (before write)', {
+        reqId,
+        writing: content,
+        currentDraft_before: currentDraft,
+        publishedDraft_before: publishedDraft,
+      });
 
-    currentDraft = content;
+      currentDraft = content;
 
-    log('END /draft (after write)', {
-      reqId,
-      currentDraft_after: currentDraft,
-      publishedDraft_after: publishedDraft,
-    });
+      log('END /draft (after write)', {
+        reqId,
+        currentDraft_after: currentDraft,
+        publishedDraft_after: publishedDraft,
+      });
 
-    res.json({ ok: true, saved: content });
-  }, SAVE_COMMIT_DELAY_MS);
+      res.json({ ok: true, saved: content });
+      resolve();
+    }, SAVE_COMMIT_DELAY_MS);
+  });
+
 });
 
 
@@ -106,7 +110,7 @@ app.post('/draft', (req, res) => {
 // in flight (its timeout hasn't fired), publishedDraft will be set to the
 // older saved value, not the in-flight one.
 
-app.post('/publish', (req, res) => {
+app.post('/publish', async (req, res) => {
   const reqId = req._reqId;
 
   log('START /publish', {
@@ -114,6 +118,10 @@ app.post('/publish', (req, res) => {
     currentDraft_before: currentDraft,
     publishedDraft_before: publishedDraft,
   });
+
+  // Wait for the most recent save to commit (if one is in flight).
+  log('WAIT /publish (await latestSaveCommit)', { reqId });
+  await latestSaveCommit;
 
   publishedDraft = currentDraft;
 
@@ -125,6 +133,7 @@ app.post('/publish', (req, res) => {
 
   res.json({ ok: true, published: publishedDraft });
 });
+
 
 // GET /published — return the currently published draft.
 app.get('/published', (req, res) => {
