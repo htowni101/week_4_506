@@ -1,0 +1,21 @@
+[2026-05-04T15:28:40.022Z] HARNESS BEGIN
+[2026-05-04T15:28:40.024Z] HARNESS POST /reset (start) {"reqId":"reset-1"}
+[2026-05-04T15:28:40.040Z] POST /reset {"reqId":"reset-1"}
+[2026-05-04T15:28:40.050Z] HARNESS POST /reset (done) {"reqId":"reset-1"}
+[2026-05-04T15:28:40.050Z] HARNESS POST /draft A (start) {"reqId":"draft-A","content":"draft A"}
+[2026-05-04T15:28:40.061Z] START /draft {"reqId":"draft-A","content":"draft A","delayMs":300,"currentDraft_before":"","publishedDraft_before":""}
+[2026-05-04T15:28:40.362Z] COMMIT /draft (before write) {"reqId":"draft-A","writing":"draft A","currentDraft_before":"","publishedDraft_before":""}
+[2026-05-04T15:28:40.362Z] END /draft (after write) {"reqId":"draft-A","currentDraft_after":"draft A","publishedDraft_after":""}
+[2026-05-04T15:28:40.365Z] HARNESS POST /draft A (done) {"reqId":"draft-A"}
+[2026-05-04T15:28:40.365Z] HARNESS POST /draft B (start, IN-FLIGHT) {"reqId":"draft-B","content":"draft B"}
+[2026-05-04T15:28:40.366Z] HARNESS POST /publish (start) {"reqId":"publish-1"}
+[2026-05-04T15:28:40.370Z] START /draft {"reqId":"draft-B","content":"draft B","delayMs":300,"currentDraft_before":"draft A","publishedDraft_before":""}
+[2026-05-04T15:28:40.371Z] START /publish {"reqId":"publish-1","currentDraft_before":"draft A","publishedDraft_before":""}
+[2026-05-04T15:28:40.371Z] END /publish {"reqId":"publish-1","currentDraft_after":"draft A","publishedDraft_after":"draft A"}
+[2026-05-04T15:28:40.671Z] COMMIT /draft (before write) {"reqId":"draft-B","writing":"draft B","currentDraft_before":"draft A","publishedDraft_before":"draft A"}
+[2026-05-04T15:28:40.671Z] END /draft (after write) {"reqId":"draft-B","currentDraft_after":"draft B","publishedDraft_after":"draft A"}
+[2026-05-04T15:28:40.673Z] HARNESS POST /draft B (done) {"reqId":"draft-B","status":200,"body":{"ok":true,"saved":"draft B"}}
+[2026-05-04T15:28:40.673Z] HARNESS POST /publish (done) {"reqId":"publish-1","status":200,"body":{"ok":true,"published":"draft A"}}
+[2026-05-04T15:28:40.683Z] HARNESS GET /current {"current":"draft B"}
+[2026-05-04T15:28:40.683Z] HARNESS GET /published {"published":"draft A"}
+[2026-05-04T15:28:40.683Z] HARNESS END {"expectedPublished":"draft B","actualPublished":"draft A"}
