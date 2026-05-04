@@ -1,22 +1,22 @@
-[2026-05-04T15:51:18.412Z] HARNESS BEGIN
-[2026-05-04T15:51:18.414Z] HARNESS POST /reset (start) {"reqId":"reset-1"}
-[2026-05-04T15:51:18.429Z] POST /reset {"reqId":"reset-1"}
-[2026-05-04T15:51:18.438Z] HARNESS POST /reset (done) {"reqId":"reset-1"}
-[2026-05-04T15:51:18.438Z] HARNESS POST /draft A (start) {"reqId":"draft-A","content":"draft A"}
-[2026-05-04T15:51:18.450Z] START /draft {"reqId":"draft-A","content":"draft A","delayMs":300,"currentDraft_before":"","publishedDraft_before":""}
-[2026-05-04T15:51:18.751Z] COMMIT /draft (before write) {"reqId":"draft-A","writing":"draft A","currentDraft_before":"","publishedDraft_before":""}
-[2026-05-04T15:51:18.751Z] END /draft (after write) {"reqId":"draft-A","currentDraft_after":"draft A","publishedDraft_after":""}
-[2026-05-04T15:51:18.754Z] HARNESS POST /draft A (done) {"reqId":"draft-A"}
-[2026-05-04T15:51:18.754Z] HARNESS POST /draft B (start, IN-FLIGHT) {"reqId":"draft-B","content":"draft B"}
-[2026-05-04T15:51:18.755Z] HARNESS POST /publish (start) {"reqId":"publish-1"}
-[2026-05-04T15:51:18.760Z] START /draft {"reqId":"draft-B","content":"draft B","delayMs":300,"currentDraft_before":"draft A","publishedDraft_before":""}
-[2026-05-04T15:51:18.762Z] START /publish {"reqId":"publish-1","currentDraft_before":"draft A","publishedDraft_before":""}
-[2026-05-04T15:51:18.762Z] WAIT /publish (await latestSaveCommit) {"reqId":"publish-1"}
-[2026-05-04T15:51:19.060Z] COMMIT /draft (before write) {"reqId":"draft-B","writing":"draft B","currentDraft_before":"draft A","publishedDraft_before":""}
-[2026-05-04T15:51:19.061Z] END /draft (after write) {"reqId":"draft-B","currentDraft_after":"draft B","publishedDraft_after":""}
-[2026-05-04T15:51:19.062Z] END /publish {"reqId":"publish-1","currentDraft_after":"draft B","publishedDraft_after":"draft B"}
-[2026-05-04T15:51:19.064Z] HARNESS POST /draft B (done) {"reqId":"draft-B","status":200,"body":{"ok":true,"saved":"draft B"}}
-[2026-05-04T15:51:19.064Z] HARNESS POST /publish (done) {"reqId":"publish-1","status":200,"body":{"ok":true,"published":"draft B"}}
-[2026-05-04T15:51:19.076Z] HARNESS GET /current {"current":"draft B"}
-[2026-05-04T15:51:19.076Z] HARNESS GET /published {"published":"draft B"}
-[2026-05-04T15:51:19.076Z] HARNESS END {"expectedPublished":"draft B","actualPublished":"draft B"}
+[2026-05-04T16:02:32.079Z] HARNESS BEGIN
+[2026-05-04T16:02:32.081Z] HARNESS POST /reset (start) {"reqId":"reset-1"}
+[2026-05-04T16:02:32.096Z] POST /reset {"reqId":"reset-1"}
+[2026-05-04T16:02:32.105Z] HARNESS POST /reset (done) {"reqId":"reset-1"}
+[2026-05-04T16:02:32.106Z] HARNESS POST /draft A (start) {"reqId":"draft-A","content":"draft A"}
+[2026-05-04T16:02:32.117Z] START /draft {"reqId":"draft-A","content":"draft A","delayMs":300,"currentDraft_before":"","publishedDraft_before":""}
+[2026-05-04T16:02:32.419Z] COMMIT /draft (before write) {"reqId":"draft-A","writing":"draft A","currentDraft_before":"","publishedDraft_before":""}
+[2026-05-04T16:02:32.419Z] END /draft (after write) {"reqId":"draft-A","currentDraft_after":"draft A","publishedDraft_after":""}
+[2026-05-04T16:02:32.422Z] HARNESS POST /draft A (done) {"reqId":"draft-A"}
+[2026-05-04T16:02:32.422Z] HARNESS POST /draft B (start, IN-FLIGHT) {"reqId":"draft-B","content":"draft B"}
+[2026-05-04T16:02:32.423Z] HARNESS POST /publish (start) {"reqId":"publish-1"}
+[2026-05-04T16:02:32.429Z] START /draft {"reqId":"draft-B","content":"draft B","delayMs":300,"currentDraft_before":"draft A","publishedDraft_before":""}
+[2026-05-04T16:02:32.430Z] START /publish {"reqId":"publish-1","currentDraft_before":"draft A","publishedDraft_before":""}
+[2026-05-04T16:02:32.430Z] WAIT /publish (await latestSaveCommit) {"reqId":"publish-1"}
+[2026-05-04T16:02:32.729Z] COMMIT /draft (before write) {"reqId":"draft-B","writing":"draft B","currentDraft_before":"draft A","publishedDraft_before":""}
+[2026-05-04T16:02:32.730Z] END /draft (after write) {"reqId":"draft-B","currentDraft_after":"draft B","publishedDraft_after":""}
+[2026-05-04T16:02:32.731Z] END /publish {"reqId":"publish-1","currentDraft_after":"draft B","publishedDraft_after":"draft B"}
+[2026-05-04T16:02:32.733Z] HARNESS POST /draft B (done) {"reqId":"draft-B","status":200,"body":{"ok":true,"saved":"draft B"}}
+[2026-05-04T16:02:32.733Z] HARNESS POST /publish (done) {"reqId":"publish-1","status":200,"body":{"ok":true,"published":"draft B"}}
+[2026-05-04T16:02:32.743Z] HARNESS GET /current {"current":"draft B"}
+[2026-05-04T16:02:32.743Z] HARNESS GET /published {"published":"draft B"}
+[2026-05-04T16:02:32.744Z] HARNESS END {"expectedPublished":"draft B","actualPublished":"draft B"}
